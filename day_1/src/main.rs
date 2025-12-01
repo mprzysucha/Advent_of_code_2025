@@ -9,32 +9,24 @@ fn main() {
         if line.chars().nth(0).unwrap() == 'L' {
             sign = -1;
         }
-        let mut prev_position = position;
+        let prev_position = position;
         position += sign * line[1..].parse::<i32>().unwrap();
-
-        while position < 0 {
-            position += 100;
-            zero_counter_part_2 += 1;
+        if position < 0 {
+            zero_counter_part_2 += 1 - (position + 1) / 100;
+            position = 99 + (position + 1) % 100;
             if prev_position == 0 {
-                prev_position = 999;
+                zero_counter_part_2 -= 1;
             }
         }
-        if prev_position == 999 {
-            zero_counter_part_2 -= 1;
-        }
-        while position >= 100 {
-            position -= 100;
-            zero_counter_part_2 += 1;
-            prev_position = 1111;
+        if position >= 100 {
+            zero_counter_part_2 += (position - 1) / 100;
+            position = position % 100;
         }
         if position == 0 {
             zero_counter += 1;
-            if prev_position != 1111 {
-                zero_counter_part_2 += 1;
-            }
+            zero_counter_part_2 += 1;
         }
     }
-
     println!("Part 1: {}", zero_counter);
     println!("Part 2: {}", zero_counter_part_2);
 }
