@@ -20,7 +20,7 @@ fn main() {
         }
         if position >= 100 {
             zero_counter_part_2 += (position - 1) / 100;
-            position = position % 100;
+            position %= 100;
         }
         if position == 0 {
             zero_counter += 1;
