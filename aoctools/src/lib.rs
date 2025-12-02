@@ -40,6 +40,13 @@ pub fn parse_i32(s: &str) -> i32 {
     }
 }
 
+pub fn parse_u64(s: &str) -> u64 {
+    match s.parse::<u64>() {
+        Ok(num) => num,
+        Err(e) => panic!("Error parsing number: {}", e),
+    }
+}
+
 pub fn parse_i64(s: &str) -> i64 {
     match s.parse::<i64>() {
         Ok(num) => num,
