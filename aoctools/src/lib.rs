@@ -33,6 +33,10 @@ pub fn parse(s: &str) -> u32 {
     }
 }
 
+pub fn char_to_int(ch: char) -> usize {
+    ch as usize - 48
+}
+
 pub fn parse_i32(s: &str) -> i32 {
     match s.parse::<i32>() {
         Ok(num) => num,
