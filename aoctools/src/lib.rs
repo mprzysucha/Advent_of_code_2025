@@ -1,6 +1,7 @@
 use std::fs;
 use std::fs::File;
 use std::io::{ BufReader, Lines, prelude::* };
+use std::str::FromStr;
 
 pub fn read_file(file_name: &str) -> Lines<BufReader<File>> {
     let file_name = String::from(file_name);
@@ -35,6 +36,20 @@ pub fn parse(s: &str) -> u32 {
 
 pub fn char_to_int(ch: char) -> usize {
     ch as usize - 48
+}
+
+pub fn parse2<T: FromStr>(s: &str) -> T {
+    match s.parse::<T>() {
+        Ok(num) => num,
+        Err(_) => panic!("Error parsing number: {}", s),
+    }
+}
+
+pub fn parse_usize(s: &str) -> usize {
+    match s.parse::<usize>() {
+        Ok(num) => num,
+        Err(e) => panic!("Error parsing number: {}", e),
+    }
 }
 
 pub fn parse_i32(s: &str) -> i32 {

@@ -3,8 +3,11 @@ use std::collections::{HashMap, HashSet};
 use aoctools::read_file;
 
 fn main() {
-    let file_name = "input.txt";
-    let take_max = 1000;
+    let file_name = "test_input.txt";
+    let mut take_max = 1000;
+    if file_name == "test_input.txt" {
+        take_max = 10;
+    }
     let circuits = read_circuits(file_name);
     let number_of_boxes = circuits.len();
     let mut distances = HashMap::<(usize, usize), f64>::new();
@@ -15,6 +18,14 @@ fn main() {
     }
     let mut sorted_distances = distances.into_iter().collect::<Vec<((usize, usize), f64)>>();
     sorted_distances.sort_by(|((_, _), d1), ((_, _), d2)| d1.partial_cmp(d2).unwrap());
+    let mut cnt = 0;
+    for (i, d) in sorted_distances.iter().enumerate() {
+        println!("{} {:?}", i, d);
+        cnt += 1;
+        if cnt == 12 {
+            break;
+        }
+    }
     let top_of_sorted_distances = sorted_distances.clone().into_iter().take(take_max).collect::<Vec<((usize, usize), f64)>>();
     let mut sets = Vec::<HashSet<usize>>::new();
     for (idx, d) in top_of_sorted_distances.iter().enumerate() {
@@ -52,6 +63,7 @@ fn main() {
             }
         }
     }
+    println!("{:?}", sets);
     let mut lens = sets.iter().map(|hs| hs.len()).collect::<Vec<usize>>();
     lens.sort_by(|a, b| b.partial_cmp(a).unwrap());
     println!("Part 1: {:?}", lens[0] * lens[1] * lens[2]);
